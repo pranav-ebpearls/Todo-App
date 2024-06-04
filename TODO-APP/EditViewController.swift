@@ -7,7 +7,7 @@
 
 import UIKit
 protocol EditViewControllerManageable {
-    func onEditTask(task: TodoList, index: Int)//, index: Int)
+    func onEditTask(task: TodoList, index: Int)
 }
 
 class EditViewController: UIViewController, UITextFieldDelegate {
@@ -44,8 +44,6 @@ class EditViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-//    var editTaskClosuree: ((TodoList, Int) -> Void)?
-    
     var delegate: EditViewControllerManageable?
     
     private var task: TodoList
@@ -56,11 +54,6 @@ class EditViewController: UIViewController, UITextFieldDelegate {
         self.index = index
         super.init(nibName: nil, bundle: nil)
     }
-    
-//    func get(task: TodoList, index: Int) {
-//        self.task = task
-//        self.index = index
-//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -104,13 +97,8 @@ class EditViewController: UIViewController, UITextFieldDelegate {
     
     @objc func submitButtonTappedd() {
         guard let title = textFieldLabel.text else { return }
-        
         task.body = title
-        
-  
         delegate?.onEditTask(task: task, index: index)
-        
-//        editTaskClosuree?(task, index)
         navigationController?.popViewController(animated: true)
     }
     

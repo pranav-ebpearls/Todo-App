@@ -70,23 +70,9 @@ class ViewController: UIViewController {
     
     @objc func addButtonTapped(){
         let vc = AddViewController()
-        
-                vc.delegate = self
-        //
-//        vc.onTaskClosure = { [weak self] todoTask in
-//            guard let self = self else { return }
-//            
-//            self.contents.append(todoTask)
-//            
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-            //
-            //
-            //
-            //        }
-            self.navigationController?.pushViewController(vc, animated: true)
-//        }
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
 }
 
@@ -112,30 +98,9 @@ extension ViewController:  UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let task = contents[indexPath.row]
-        
-        
-        
         let editVC = EditViewController(task: task, index: indexPath.row)
         editVC.delegate = self
-        
-        //        let taskToBeEdited = contents[indexPath.row]
-        
-        //        editVC.onTaskClosuree  { [weak self] todoTask in
-        //            guard let self = self else { return }
-        //            
-        //            self.contents.append(todoTask)
-        //            
-        //            DispatchQueue.main.async {
-        //                self.tableView.reloadData()
-        //            }
-        
-        // delegate
-        // closure / completion handler
-        
         self.navigationController?.pushViewController(editVC, animated: true)
-//    }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -152,6 +117,8 @@ extension ViewController:  UITableViewDataSource, UITableViewDelegate {
     }
     
 }
+
+
 extension ViewController: AddViewControllerManageable {
     func onCreateTask(task: TodoList) {
         self.contents.append(task)

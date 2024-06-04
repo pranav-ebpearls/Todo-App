@@ -39,7 +39,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     
     private let textFieldLabel: UITextField = {
         let textField = UITextField()
-
+        
         textField.backgroundColor = .white
         textField.borderStyle = .line
         textField.textColor = .black
@@ -48,11 +48,8 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
-    
-//    var onTaskClosure: ((TodoList) -> Void)?
-    
     var delegate: AddViewControllerManageable?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -87,13 +84,9 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func submitButtonTapped() {
-        
         guard let title = textFieldLabel.text else { return }
         let task = TodoList(body: title)
-        
         delegate?.onCreateTask(task: task)
-        
-//        onTaskClosure?(task)
         navigationController?.popViewController(animated: true)
     }
 }
