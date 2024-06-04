@@ -9,9 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
     private var contents: [TodoList] = []
-
+    
     //MARK: - UI Components
     
     private let tableView: UITableView = {
@@ -30,9 +29,9 @@ class ViewController: UIViewController {
         button.setImage(addButtonImage, for: .normal)
         return button
     }()
-
+    
     //MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
@@ -72,21 +71,22 @@ class ViewController: UIViewController {
     @objc func addButtonTapped(){
         let vc = AddViewController()
         
-        vc.delegate = self
-        
-        vc.onTaskClosure = { [weak self] todoTask in
-            guard let self = self else { return }
-            
-            self.contents.append(todoTask)
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-            
-    
-            
-        }
-        self.navigationController?.pushViewController(vc, animated: true)
+                vc.delegate = self
+        //
+//        vc.onTaskClosure = { [weak self] todoTask in
+//            guard let self = self else { return }
+//            
+//            self.contents.append(todoTask)
+//            
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+            //
+            //
+            //
+            //        }
+            self.navigationController?.pushViewController(vc, animated: true)
+//        }
     }
 }
 
@@ -110,25 +110,51 @@ extension ViewController:  UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tobeeditedtask = contents[indexPath.row]
         
-        editvc(task: tobeeditedtask, index: indexPath.row)
+        let task = contents[indexPath.row]
+        
+        
+        
+        let editVC = EditViewController(task: task, index: indexPath.row)
+        editVC.delegate = self
+        
+        //        let taskToBeEdited = contents[indexPath.row]
+        
+        //        editVC.onTaskClosuree  { [weak self] todoTask in
+        //            guard let self = self else { return }
+        //            
+        //            self.contents.append(todoTask)
+        //            
+        //            DispatchQueue.main.async {
+        //                self.tableView.reloadData()
+        //            }
         
         // delegate
         // closure / completion handler
         
-        push(editvc)
+        self.navigationController?.pushViewController(editVC, animated: true)
+//    }
+        
         
     }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            contents.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
+    }
+    
 }
-
 extension ViewController: AddViewControllerManageable {
     func onCreateTask(task: TodoList) {
         self.contents.append(task)
-        
-//        contents[replaceIndex] = task
-        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -137,8 +163,7 @@ extension ViewController: AddViewControllerManageable {
 }
 
 extension ViewController: EditViewControllerManageable {
-    func onEditTask(task: TodoList, index: int) {
-//        self.contents.append(task)
+    func onEditTask(task: TodoList, index: Int) {
         
         contents[index] = task
         
@@ -146,6 +171,5 @@ extension ViewController: EditViewControllerManageable {
             self.tableView.reloadData()
         }
     }
-    
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A2667162C0EB8680049D20A /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2667152C0EB8680049D20A /* EditViewController.swift */; };
 		6AF503C22C0D6BA4008C5973 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF503C12C0D6BA4008C5973 /* AppDelegate.swift */; };
 		6AF503C42C0D6BA4008C5973 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF503C32C0D6BA4008C5973 /* SceneDelegate.swift */; };
 		6AF503C62C0D6BA4008C5973 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF503C52C0D6BA4008C5973 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A2667152C0EB8680049D20A /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		6AF503BE2C0D6BA4008C5973 /* TODO-APP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TODO-APP.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AF503C12C0D6BA4008C5973 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AF503C32C0D6BA4008C5973 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				6AF503D52C0D7C09008C5973 /* TodoList.swift */,
 				6AF503D72C0D7D73008C5973 /* CustomCell.swift */,
 				6AF503DF2C0DC825008C5973 /* AddViewController.swift */,
+				6A2667152C0EB8680049D20A /* EditViewController.swift */,
 			);
 			path = "TODO-APP";
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				6AF503D82C0D7D73008C5973 /* CustomCell.swift in Sources */,
 				6AF503C42C0D6BA4008C5973 /* SceneDelegate.swift in Sources */,
 				6AF503D62C0D7C09008C5973 /* TodoList.swift in Sources */,
+				6A2667162C0EB8680049D20A /* EditViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

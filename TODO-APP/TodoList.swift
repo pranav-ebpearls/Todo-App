@@ -8,5 +8,5 @@
 import Foundation
 
 struct TodoList {
-    let body: String
+    var body: String
 }

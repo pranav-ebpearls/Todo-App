@@ -1,21 +1,16 @@
 //
-//  CustomCellViewController.swift
+//  EditViewController.swift
 //  TODO-APP
 //
-//  Created by ebpearls on 6/3/24.
+//  Created by ebpearls on 6/4/24.
 //
 
-
 import UIKit
-
-
-protocol AddViewControllerManageable {
-    func onCreateTask(task: TodoList)
+protocol EditViewControllerManageable {
+    func onEditTask(task: TodoList, index: Int)//, index: Int)
 }
 
-
-class AddViewController: UIViewController, UITextFieldDelegate {
-    
+class EditViewController: UIViewController, UITextFieldDelegate {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -33,7 +28,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 15
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(submitButtonTappedd), for: .touchUpInside)
         return button
     }()
     
@@ -49,22 +44,43 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-//    var onTaskClosure: ((TodoList) -> Void)?
+//    var editTaskClosuree: ((TodoList, Int) -> Void)?
     
-    var delegate: AddViewControllerManageable?
-
+    var delegate: EditViewControllerManageable?
+    
+    private var task: TodoList
+    private var index: Int
+    
+    init(task: TodoList, index: Int) {
+        self.task = task
+        self.index = index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+//    func get(task: TodoList, index: Int) {
+//        self.task = task
+//        self.index = index
+//    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         
         textFieldLabel.delegate = self
+        
+        textFieldLabel.text = task.body
     }
+    
     
     private func setupUI() {
         
         view.backgroundColor = .lightGray
         navigationController?.navigationBar.backgroundColor = .systemTeal
-        navigationItem.title = "Add"
+        navigationItem.title = "Edit"
         
         self.view.addSubview(textFieldLabel)
         self.view.addSubview(submitButton)
@@ -86,15 +102,16 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         ])
     }
     
-    @objc func submitButtonTapped() {
-        
+    @objc func submitButtonTappedd() {
         guard let title = textFieldLabel.text else { return }
-        let task = TodoList(body: title)
         
-        delegate?.onCreateTask(task: task)
+        task.body = title
         
-//        onTaskClosure?(task)
+  
+        delegate?.onEditTask(task: task, index: index)
+        
+//        editTaskClosuree?(task, index)
         navigationController?.popViewController(animated: true)
     }
+    
 }
-
